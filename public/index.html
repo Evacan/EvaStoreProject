@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eva Tech Store</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #030712;
+    color: white;
+}
+
+.cart-icon {
+    text-align: center;
+    font-size: 45px;
+    margin-top: 25px;
+    filter: drop-shadow(0 0 15px #00e5ff);
+}
+
+h1 {
+    text-align: center;
+    font-size: 80px;
+    margin: 10px 0;
+    background: linear-gradient(to right, #00e5ff, #ff00ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 30px #00e5ff;
+    letter-spacing: 5px;
+}
+
+.subtitle {
+    text-align: center;
+    letter-spacing: 10px;
+    color: #d1d5db;
+    margin-bottom: 40px;
+}
+
+.container {
+    width: 90%;
+    margin: auto;
+    padding: 30px;
+    border-radius: 25px;
+    background: rgba(15, 23, 42, 0.9);
+    border: 2px solid #7c3aed;
+    box-shadow:
+        0 0 25px #00e5ff,
+        0 0 50px #ff00ff;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+th {
+    padding: 18px;
+    font-size: 20px;
+    background: linear-gradient(to right, #00c6ff, #ff00ff);
+    color: white;
+    text-transform: uppercase;
+}
+
+td {
+    padding: 18px;
+    text-align: center;
+    font-size: 19px;
+    background: rgba(3, 7, 18, 0.9);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.product-icon {
+    font-size: 35px;
+    display: inline-block;
+    margin-right: 15px;
+    filter: drop-shadow(0 0 10px #00e5ff);
+}
+
+.product-name {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.price {
+    color: #ff66ff;
+    font-weight: bold;
+    text-shadow: 0 0 10px #ff00ff;
+}
+
+tr:hover td {
+    background: rgba(0, 229, 255, 0.12);
+}
+
+.footer {
+    text-align: center;
+    margin: 35px;
+    color: #00e5ff;
+    letter-spacing: 6px;
+    font-size: 18px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="cart-icon">🛒</div>
+
+<h1>EVA TECH STORE</h1>
+
+<div class="subtitle">
+    TECHNOLOGY • INNOVATION • PERFORMANCE
+</div>
+
+<div class="container">
+<table>
+<thead>
+<tr>
+    <th>🏪 Store Name</th>
+    <th>🔲 Product ID</th>
+    <th>📦 Product Name</th>
+    <th>🏷️ Price</th>
+</tr>
+</thead>
+
+<tbody id="productTable"></tbody>
+</table>
+</div>
+
+<div class="footer">
+    ⚡ POWERING YOUR DIGITAL WORLD
+</div>
+
+<script>
+async function loadProducts() {
+    const response = await fetch("http://localhost:3000/getAll");
+    const products = await response.json();
+    const table = document.getElementById("productTable");
+
+    products.forEach(product => {
+        const icon =
+            product.productName === "Gaming Mouse" ? "🖱️" :
+            product.productName === "Monitor" ? "🖥️" :
+            product.productName === "Headset" ? "🎧" :
+            product.productName === "Webcam" ? "📷" :
+            product.productName === "LapTop Stand" || product.productName === "Laptop Stand" ? "💻" : "📦";
+
+        const row = `
+            <tr>
+                <td>🏪 ${product.storeName}</td>
+                <td style="color:#00e5ff; font-weight:bold;">${product.productId}</td>
+                <td>
+                    <div class="product-name">
+                        <span class="product-icon">${icon}</span>
+                        ${product.productName}
+                    </div>
+                </td>
+                <td class="price">$${product.price}</td>
+            </tr>
+        `;
+
+        table.innerHTML += row;
+    });
+}
+
+loadProducts();
+</script>
+
+</body>
+</html>
