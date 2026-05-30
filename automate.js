@@ -7,7 +7,7 @@ const teamEndpoints = [
     },
     {
         email: "member2@email.com",
-        url: "https://member2-store.onrender.com/getAll"
+        url: "https://zinebstoreproject-1.onrender.com/getAll"
     },
     {
         email: "member3@email.com",
