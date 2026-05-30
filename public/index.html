@@ -137,7 +137,7 @@ tr:hover td {
 
 <script>
 async function loadProducts() {
-    const response = await fetch("http://localhost:3000/getAll");
+    const response = await fetch("/getAll");
     const products = await response.json();
     const table = document.getElementById("productTable");
 
