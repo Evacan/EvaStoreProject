@@ -1,7 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const Product = require("../models/Product");
+const path = require("path");
 
+router.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "../public/index.html"));
+});
 // GET all products
 router.get("/products", async (req, res) => {
     try {
